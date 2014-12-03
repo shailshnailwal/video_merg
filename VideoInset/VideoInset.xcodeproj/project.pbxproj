@@ -1,0 +1,676 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1FBF73861A25B8DC00B88AAB /* CommonVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FBF73851A25B8DC00B88AAB /* CommonVC.m */; };
+		F72220F3199C80D8001449BA /* UIImagePickerController+oritation.m in Sources */ = {isa = PBXBuildFile; fileRef = F72220F2199C80D8001449BA /* UIImagePickerController+oritation.m */; };
+		F7DD7DD3199B362800BA40F4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7DD7DD2199B362800BA40F4 /* Foundation.framework */; };
+		F7DD7DD5199B362800BA40F4 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7DD7DD4199B362800BA40F4 /* CoreGraphics.framework */; };
+		F7DD7DD7199B362800BA40F4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7DD7DD6199B362800BA40F4 /* UIKit.framework */; };
+		F7DD7DDD199B362800BA40F4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F7DD7DDB199B362800BA40F4 /* InfoPlist.strings */; };
+		F7DD7DDF199B362800BA40F4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F7DD7DDE199B362800BA40F4 /* main.m */; };
+		F7DD7DE3199B362800BA40F4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F7DD7DE2199B362800BA40F4 /* AppDelegate.m */; };
+		F7DD7DE6199B362800BA40F4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F7DD7DE4199B362800BA40F4 /* Main.storyboard */; };
+		F7DD7DE9199B362800BA40F4 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7DD7DE8199B362800BA40F4 /* ViewController.m */; };
+		F7DD7DEB199B362800BA40F4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F7DD7DEA199B362800BA40F4 /* Images.xcassets */; };
+		F7DD7DF2199B362800BA40F4 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7DD7DF1199B362800BA40F4 /* XCTest.framework */; };
+		F7DD7DF3199B362800BA40F4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7DD7DD2199B362800BA40F4 /* Foundation.framework */; };
+		F7DD7DF4199B362800BA40F4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7DD7DD6199B362800BA40F4 /* UIKit.framework */; };
+		F7DD7DFC199B362800BA40F4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F7DD7DFA199B362800BA40F4 /* InfoPlist.strings */; };
+		F7DD7DFE199B362800BA40F4 /* VideoInsetTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F7DD7DFD199B362800BA40F4 /* VideoInsetTests.m */; };
+		F7DD7E29199B363A00BA40F4 /* ALAsset+accessibilityLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = F7DD7E09199B363A00BA40F4 /* ALAsset+accessibilityLabel.m */; };
+		F7DD7E2A199B363A00BA40F4 /* ALAsset+assetType.m in Sources */ = {isa = PBXBuildFile; fileRef = F7DD7E0B199B363A00BA40F4 /* ALAsset+assetType.m */; };
+		F7DD7E2B199B363A00BA40F4 /* ALAsset+isEqual.m in Sources */ = {isa = PBXBuildFile; fileRef = F7DD7E0D199B363A00BA40F4 /* ALAsset+isEqual.m */; };
+		F7DD7E2C199B363A00BA40F4 /* ALAssetsGroup+isEqual.m in Sources */ = {isa = PBXBuildFile; fileRef = F7DD7E0F199B363A00BA40F4 /* ALAssetsGroup+isEqual.m */; };
+		F7DD7E2D199B363A00BA40F4 /* CTAssetItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7DD7E11199B363A00BA40F4 /* CTAssetItemViewController.m */; };
+		F7DD7E2E199B363A00BA40F4 /* CTAssetScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = F7DD7E13199B363A00BA40F4 /* CTAssetScrollView.m */; };
+		F7DD7E2F199B363A00BA40F4 /* CTAssetsGroupViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F7DD7E15199B363A00BA40F4 /* CTAssetsGroupViewCell.m */; };
+		F7DD7E30199B363A00BA40F4 /* CTAssetsGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7DD7E17199B363A00BA40F4 /* CTAssetsGroupViewController.m */; };
+		F7DD7E31199B363A00BA40F4 /* CTAssetsPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7DD7E19199B363A00BA40F4 /* CTAssetsPageViewController.m */; };
+		F7DD7E32199B363A00BA40F4 /* CTAssetsPicker.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F7DD7E1A199B363A00BA40F4 /* CTAssetsPicker.xcassets */; };
+		F7DD7E33199B363A00BA40F4 /* CTAssetsPickerConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = F7DD7E1C199B363A00BA40F4 /* CTAssetsPickerConstants.m */; };
+		F7DD7E34199B363A00BA40F4 /* CTAssetsPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7DD7E1E199B363A00BA40F4 /* CTAssetsPickerController.m */; };
+		F7DD7E35199B363A00BA40F4 /* CTAssetsSupplementaryView.m in Sources */ = {isa = PBXBuildFile; fileRef = F7DD7E20199B363A00BA40F4 /* CTAssetsSupplementaryView.m */; };
+		F7DD7E36199B363A00BA40F4 /* CTAssetsViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F7DD7E22199B363A00BA40F4 /* CTAssetsViewCell.m */; };
+		F7DD7E37199B363A00BA40F4 /* CTAssetsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7DD7E24199B363A00BA40F4 /* CTAssetsViewController.m */; };
+		F7DD7E38199B363A00BA40F4 /* CTAssetsViewControllerTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = F7DD7E26199B363A00BA40F4 /* CTAssetsViewControllerTransition.m */; };
+		F7DD7E39199B363A00BA40F4 /* NSDateFormatter+timeIntervalFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = F7DD7E28199B363A00BA40F4 /* NSDateFormatter+timeIntervalFormatter.m */; };
+		F7DD7E3B199B365300BA40F4 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7DD7E3A199B365300BA40F4 /* AssetsLibrary.framework */; };
+		F7DD7E3D199B365800BA40F4 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7DD7E3C199B365800BA40F4 /* MediaPlayer.framework */; };
+		F7DD7E41199B744000BA40F4 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = F7DD7E40199B744000BA40F4 /* MBProgressHUD.m */; };
+		F7DD7E47199B77B700BA40F4 /* VideoPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = F7DD7E44199B77B700BA40F4 /* VideoPlayerView.m */; };
+		F7DD7E48199B77B700BA40F4 /* VideoPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7DD7E46199B77B700BA40F4 /* VideoPlayerViewController.m */; };
+		F7DD7E4A199B7B8400BA40F4 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7DD7E49199B7B8400BA40F4 /* QuartzCore.framework */; };
+		F7E13865199B8EC4000AB050 /* VTime.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E13864199B8EC4000AB050 /* VTime.m */; };
+		F7FD26AB19A472D80058D3C5 /* StartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7FD26AA19A472D80058D3C5 /* StartViewController.m */; };
+		F7FD26AE19A477A70058D3C5 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7FD26AD19A477A70058D3C5 /* MainViewController.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		F7DD7DF5199B362800BA40F4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F7DD7DC7199B362800BA40F4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F7DD7DCE199B362800BA40F4;
+			remoteInfo = VideoInset;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		1FBF73841A25B8DC00B88AAB /* CommonVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonVC.h; sourceTree = "<group>"; };
+		1FBF73851A25B8DC00B88AAB /* CommonVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonVC.m; sourceTree = "<group>"; };
+		F72220F1199C80D8001449BA /* UIImagePickerController+oritation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImagePickerController+oritation.h"; sourceTree = "<group>"; };
+		F72220F2199C80D8001449BA /* UIImagePickerController+oritation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImagePickerController+oritation.m"; sourceTree = "<group>"; };
+		F7DD7DCF199B362800BA40F4 /* VideoInset.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VideoInset.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F7DD7DD2199B362800BA40F4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		F7DD7DD4199B362800BA40F4 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		F7DD7DD6199B362800BA40F4 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		F7DD7DDA199B362800BA40F4 /* VideoInset-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "VideoInset-Info.plist"; sourceTree = "<group>"; };
+		F7DD7DDC199B362800BA40F4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		F7DD7DDE199B362800BA40F4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		F7DD7DE0199B362800BA40F4 /* VideoInset-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "VideoInset-Prefix.pch"; sourceTree = "<group>"; };
+		F7DD7DE1199B362800BA40F4 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		F7DD7DE2199B362800BA40F4 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		F7DD7DE5199B362800BA40F4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		F7DD7DE7199B362800BA40F4 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		F7DD7DE8199B362800BA40F4 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		F7DD7DEA199B362800BA40F4 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		F7DD7DF0199B362800BA40F4 /* VideoInsetTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VideoInsetTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F7DD7DF1199B362800BA40F4 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		F7DD7DF9199B362800BA40F4 /* VideoInsetTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "VideoInsetTests-Info.plist"; sourceTree = "<group>"; };
+		F7DD7DFB199B362800BA40F4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		F7DD7DFD199B362800BA40F4 /* VideoInsetTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VideoInsetTests.m; sourceTree = "<group>"; };
+		F7DD7E08199B363A00BA40F4 /* ALAsset+accessibilityLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ALAsset+accessibilityLabel.h"; sourceTree = "<group>"; };
+		F7DD7E09199B363A00BA40F4 /* ALAsset+accessibilityLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ALAsset+accessibilityLabel.m"; sourceTree = "<group>"; };
+		F7DD7E0A199B363A00BA40F4 /* ALAsset+assetType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ALAsset+assetType.h"; sourceTree = "<group>"; };
+		F7DD7E0B199B363A00BA40F4 /* ALAsset+assetType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ALAsset+assetType.m"; sourceTree = "<group>"; };
+		F7DD7E0C199B363A00BA40F4 /* ALAsset+isEqual.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ALAsset+isEqual.h"; sourceTree = "<group>"; };
+		F7DD7E0D199B363A00BA40F4 /* ALAsset+isEqual.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ALAsset+isEqual.m"; sourceTree = "<group>"; };
+		F7DD7E0E199B363A00BA40F4 /* ALAssetsGroup+isEqual.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ALAssetsGroup+isEqual.h"; sourceTree = "<group>"; };
+		F7DD7E0F199B363A00BA40F4 /* ALAssetsGroup+isEqual.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ALAssetsGroup+isEqual.m"; sourceTree = "<group>"; };
+		F7DD7E10199B363A00BA40F4 /* CTAssetItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTAssetItemViewController.h; sourceTree = "<group>"; };
+		F7DD7E11199B363A00BA40F4 /* CTAssetItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTAssetItemViewController.m; sourceTree = "<group>"; };
+		F7DD7E12199B363A00BA40F4 /* CTAssetScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTAssetScrollView.h; sourceTree = "<group>"; };
+		F7DD7E13199B363A00BA40F4 /* CTAssetScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTAssetScrollView.m; sourceTree = "<group>"; };
+		F7DD7E14199B363A00BA40F4 /* CTAssetsGroupViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTAssetsGroupViewCell.h; sourceTree = "<group>"; };
+		F7DD7E15199B363A00BA40F4 /* CTAssetsGroupViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTAssetsGroupViewCell.m; sourceTree = "<group>"; };
+		F7DD7E16199B363A00BA40F4 /* CTAssetsGroupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTAssetsGroupViewController.h; sourceTree = "<group>"; };
+		F7DD7E17199B363A00BA40F4 /* CTAssetsGroupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTAssetsGroupViewController.m; sourceTree = "<group>"; };
+		F7DD7E18199B363A00BA40F4 /* CTAssetsPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTAssetsPageViewController.h; sourceTree = "<group>"; };
+		F7DD7E19199B363A00BA40F4 /* CTAssetsPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTAssetsPageViewController.m; sourceTree = "<group>"; };
+		F7DD7E1A199B363A00BA40F4 /* CTAssetsPicker.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = CTAssetsPicker.xcassets; sourceTree = "<group>"; };
+		F7DD7E1B199B363A00BA40F4 /* CTAssetsPickerConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTAssetsPickerConstants.h; sourceTree = "<group>"; };
+		F7DD7E1C199B363A00BA40F4 /* CTAssetsPickerConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTAssetsPickerConstants.m; sourceTree = "<group>"; };
+		F7DD7E1D199B363A00BA40F4 /* CTAssetsPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTAssetsPickerController.h; sourceTree = "<group>"; };
+		F7DD7E1E199B363A00BA40F4 /* CTAssetsPickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTAssetsPickerController.m; sourceTree = "<group>"; };
+		F7DD7E1F199B363A00BA40F4 /* CTAssetsSupplementaryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTAssetsSupplementaryView.h; sourceTree = "<group>"; };
+		F7DD7E20199B363A00BA40F4 /* CTAssetsSupplementaryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTAssetsSupplementaryView.m; sourceTree = "<group>"; };
+		F7DD7E21199B363A00BA40F4 /* CTAssetsViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTAssetsViewCell.h; sourceTree = "<group>"; };
+		F7DD7E22199B363A00BA40F4 /* CTAssetsViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTAssetsViewCell.m; sourceTree = "<group>"; };
+		F7DD7E23199B363A00BA40F4 /* CTAssetsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTAssetsViewController.h; sourceTree = "<group>"; };
+		F7DD7E24199B363A00BA40F4 /* CTAssetsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTAssetsViewController.m; sourceTree = "<group>"; };
+		F7DD7E25199B363A00BA40F4 /* CTAssetsViewControllerTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTAssetsViewControllerTransition.h; sourceTree = "<group>"; };
+		F7DD7E26199B363A00BA40F4 /* CTAssetsViewControllerTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTAssetsViewControllerTransition.m; sourceTree = "<group>"; };
+		F7DD7E27199B363A00BA40F4 /* NSDateFormatter+timeIntervalFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDateFormatter+timeIntervalFormatter.h"; sourceTree = "<group>"; };
+		F7DD7E28199B363A00BA40F4 /* NSDateFormatter+timeIntervalFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDateFormatter+timeIntervalFormatter.m"; sourceTree = "<group>"; };
+		F7DD7E3A199B365300BA40F4 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		F7DD7E3C199B365800BA40F4 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		F7DD7E3F199B744000BA40F4 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
+		F7DD7E40199B744000BA40F4 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
+		F7DD7E43199B77B700BA40F4 /* VideoPlayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoPlayerView.h; sourceTree = "<group>"; };
+		F7DD7E44199B77B700BA40F4 /* VideoPlayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoPlayerView.m; sourceTree = "<group>"; };
+		F7DD7E45199B77B700BA40F4 /* VideoPlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoPlayerViewController.h; sourceTree = "<group>"; };
+		F7DD7E46199B77B700BA40F4 /* VideoPlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoPlayerViewController.m; sourceTree = "<group>"; };
+		F7DD7E49199B7B8400BA40F4 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		F7E13863199B8EC4000AB050 /* VTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VTime.h; sourceTree = "<group>"; };
+		F7E13864199B8EC4000AB050 /* VTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VTime.m; sourceTree = "<group>"; };
+		F7FD26A919A472D80058D3C5 /* StartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StartViewController.h; sourceTree = "<group>"; };
+		F7FD26AA19A472D80058D3C5 /* StartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StartViewController.m; sourceTree = "<group>"; };
+		F7FD26AC19A477A70058D3C5 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
+		F7FD26AD19A477A70058D3C5 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F7DD7DCC199B362800BA40F4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F7DD7E4A199B7B8400BA40F4 /* QuartzCore.framework in Frameworks */,
+				F7DD7E3D199B365800BA40F4 /* MediaPlayer.framework in Frameworks */,
+				F7DD7E3B199B365300BA40F4 /* AssetsLibrary.framework in Frameworks */,
+				F7DD7DD5199B362800BA40F4 /* CoreGraphics.framework in Frameworks */,
+				F7DD7DD7199B362800BA40F4 /* UIKit.framework in Frameworks */,
+				F7DD7DD3199B362800BA40F4 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F7DD7DED199B362800BA40F4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F7DD7DF2199B362800BA40F4 /* XCTest.framework in Frameworks */,
+				F7DD7DF4199B362800BA40F4 /* UIKit.framework in Frameworks */,
+				F7DD7DF3199B362800BA40F4 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1FBF73831A25B8C500B88AAB /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				1FBF73841A25B8DC00B88AAB /* CommonVC.h */,
+				1FBF73851A25B8DC00B88AAB /* CommonVC.m */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		F7DD7DC6199B362800BA40F4 = {
+			isa = PBXGroup;
+			children = (
+				1FBF73831A25B8C500B88AAB /* Common */,
+				F7DD7E42199B77B700BA40F4 /* VideoPlayer */,
+				F7DD7E3E199B744000BA40F4 /* MBProgressHUD */,
+				F7DD7E07199B363A00BA40F4 /* CTAssetsPickerController */,
+				F7DD7DD8199B362800BA40F4 /* VideoInset */,
+				F7DD7DF7199B362800BA40F4 /* VideoInsetTests */,
+				F7DD7DD1199B362800BA40F4 /* Frameworks */,
+				F7DD7DD0199B362800BA40F4 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		F7DD7DD0199B362800BA40F4 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F7DD7DCF199B362800BA40F4 /* VideoInset.app */,
+				F7DD7DF0199B362800BA40F4 /* VideoInsetTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F7DD7DD1199B362800BA40F4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F7DD7E49199B7B8400BA40F4 /* QuartzCore.framework */,
+				F7DD7E3C199B365800BA40F4 /* MediaPlayer.framework */,
+				F7DD7E3A199B365300BA40F4 /* AssetsLibrary.framework */,
+				F7DD7DD2199B362800BA40F4 /* Foundation.framework */,
+				F7DD7DD4199B362800BA40F4 /* CoreGraphics.framework */,
+				F7DD7DD6199B362800BA40F4 /* UIKit.framework */,
+				F7DD7DF1199B362800BA40F4 /* XCTest.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F7DD7DD8199B362800BA40F4 /* VideoInset */ = {
+			isa = PBXGroup;
+			children = (
+				F7DD7DE1199B362800BA40F4 /* AppDelegate.h */,
+				F7DD7DE2199B362800BA40F4 /* AppDelegate.m */,
+				F7DD7DE4199B362800BA40F4 /* Main.storyboard */,
+				F7DD7DE7199B362800BA40F4 /* ViewController.h */,
+				F7DD7DE8199B362800BA40F4 /* ViewController.m */,
+				F7DD7DEA199B362800BA40F4 /* Images.xcassets */,
+				F7DD7DD9199B362800BA40F4 /* Supporting Files */,
+				F7E13863199B8EC4000AB050 /* VTime.h */,
+				F7E13864199B8EC4000AB050 /* VTime.m */,
+				F72220F1199C80D8001449BA /* UIImagePickerController+oritation.h */,
+				F72220F2199C80D8001449BA /* UIImagePickerController+oritation.m */,
+				F7FD26A919A472D80058D3C5 /* StartViewController.h */,
+				F7FD26AA19A472D80058D3C5 /* StartViewController.m */,
+				F7FD26AC19A477A70058D3C5 /* MainViewController.h */,
+				F7FD26AD19A477A70058D3C5 /* MainViewController.m */,
+			);
+			path = VideoInset;
+			sourceTree = "<group>";
+		};
+		F7DD7DD9199B362800BA40F4 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				F7DD7DDA199B362800BA40F4 /* VideoInset-Info.plist */,
+				F7DD7DDB199B362800BA40F4 /* InfoPlist.strings */,
+				F7DD7DDE199B362800BA40F4 /* main.m */,
+				F7DD7DE0199B362800BA40F4 /* VideoInset-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		F7DD7DF7199B362800BA40F4 /* VideoInsetTests */ = {
+			isa = PBXGroup;
+			children = (
+				F7DD7DFD199B362800BA40F4 /* VideoInsetTests.m */,
+				F7DD7DF8199B362800BA40F4 /* Supporting Files */,
+			);
+			path = VideoInsetTests;
+			sourceTree = "<group>";
+		};
+		F7DD7DF8199B362800BA40F4 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				F7DD7DF9199B362800BA40F4 /* VideoInsetTests-Info.plist */,
+				F7DD7DFA199B362800BA40F4 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		F7DD7E07199B363A00BA40F4 /* CTAssetsPickerController */ = {
+			isa = PBXGroup;
+			children = (
+				F7DD7E08199B363A00BA40F4 /* ALAsset+accessibilityLabel.h */,
+				F7DD7E09199B363A00BA40F4 /* ALAsset+accessibilityLabel.m */,
+				F7DD7E0A199B363A00BA40F4 /* ALAsset+assetType.h */,
+				F7DD7E0B199B363A00BA40F4 /* ALAsset+assetType.m */,
+				F7DD7E0C199B363A00BA40F4 /* ALAsset+isEqual.h */,
+				F7DD7E0D199B363A00BA40F4 /* ALAsset+isEqual.m */,
+				F7DD7E0E199B363A00BA40F4 /* ALAssetsGroup+isEqual.h */,
+				F7DD7E0F199B363A00BA40F4 /* ALAssetsGroup+isEqual.m */,
+				F7DD7E10199B363A00BA40F4 /* CTAssetItemViewController.h */,
+				F7DD7E11199B363A00BA40F4 /* CTAssetItemViewController.m */,
+				F7DD7E12199B363A00BA40F4 /* CTAssetScrollView.h */,
+				F7DD7E13199B363A00BA40F4 /* CTAssetScrollView.m */,
+				F7DD7E14199B363A00BA40F4 /* CTAssetsGroupViewCell.h */,
+				F7DD7E15199B363A00BA40F4 /* CTAssetsGroupViewCell.m */,
+				F7DD7E16199B363A00BA40F4 /* CTAssetsGroupViewController.h */,
+				F7DD7E17199B363A00BA40F4 /* CTAssetsGroupViewController.m */,
+				F7DD7E18199B363A00BA40F4 /* CTAssetsPageViewController.h */,
+				F7DD7E19199B363A00BA40F4 /* CTAssetsPageViewController.m */,
+				F7DD7E1A199B363A00BA40F4 /* CTAssetsPicker.xcassets */,
+				F7DD7E1B199B363A00BA40F4 /* CTAssetsPickerConstants.h */,
+				F7DD7E1C199B363A00BA40F4 /* CTAssetsPickerConstants.m */,
+				F7DD7E1D199B363A00BA40F4 /* CTAssetsPickerController.h */,
+				F7DD7E1E199B363A00BA40F4 /* CTAssetsPickerController.m */,
+				F7DD7E1F199B363A00BA40F4 /* CTAssetsSupplementaryView.h */,
+				F7DD7E20199B363A00BA40F4 /* CTAssetsSupplementaryView.m */,
+				F7DD7E21199B363A00BA40F4 /* CTAssetsViewCell.h */,
+				F7DD7E22199B363A00BA40F4 /* CTAssetsViewCell.m */,
+				F7DD7E23199B363A00BA40F4 /* CTAssetsViewController.h */,
+				F7DD7E24199B363A00BA40F4 /* CTAssetsViewController.m */,
+				F7DD7E25199B363A00BA40F4 /* CTAssetsViewControllerTransition.h */,
+				F7DD7E26199B363A00BA40F4 /* CTAssetsViewControllerTransition.m */,
+				F7DD7E27199B363A00BA40F4 /* NSDateFormatter+timeIntervalFormatter.h */,
+				F7DD7E28199B363A00BA40F4 /* NSDateFormatter+timeIntervalFormatter.m */,
+			);
+			path = CTAssetsPickerController;
+			sourceTree = "<group>";
+		};
+		F7DD7E3E199B744000BA40F4 /* MBProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				F7DD7E3F199B744000BA40F4 /* MBProgressHUD.h */,
+				F7DD7E40199B744000BA40F4 /* MBProgressHUD.m */,
+			);
+			path = MBProgressHUD;
+			sourceTree = "<group>";
+		};
+		F7DD7E42199B77B700BA40F4 /* VideoPlayer */ = {
+			isa = PBXGroup;
+			children = (
+				F7DD7E43199B77B700BA40F4 /* VideoPlayerView.h */,
+				F7DD7E44199B77B700BA40F4 /* VideoPlayerView.m */,
+				F7DD7E45199B77B700BA40F4 /* VideoPlayerViewController.h */,
+				F7DD7E46199B77B700BA40F4 /* VideoPlayerViewController.m */,
+			);
+			path = VideoPlayer;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		F7DD7DCE199B362800BA40F4 /* VideoInset */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F7DD7E01199B362800BA40F4 /* Build configuration list for PBXNativeTarget "VideoInset" */;
+			buildPhases = (
+				F7DD7DCB199B362800BA40F4 /* Sources */,
+				F7DD7DCC199B362800BA40F4 /* Frameworks */,
+				F7DD7DCD199B362800BA40F4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = VideoInset;
+			productName = VideoInset;
+			productReference = F7DD7DCF199B362800BA40F4 /* VideoInset.app */;
+			productType = "com.apple.product-type.application";
+		};
+		F7DD7DEF199B362800BA40F4 /* VideoInsetTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F7DD7E04199B362800BA40F4 /* Build configuration list for PBXNativeTarget "VideoInsetTests" */;
+			buildPhases = (
+				F7DD7DEC199B362800BA40F4 /* Sources */,
+				F7DD7DED199B362800BA40F4 /* Frameworks */,
+				F7DD7DEE199B362800BA40F4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F7DD7DF6199B362800BA40F4 /* PBXTargetDependency */,
+			);
+			name = VideoInsetTests;
+			productName = VideoInsetTests;
+			productReference = F7DD7DF0199B362800BA40F4 /* VideoInsetTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F7DD7DC7199B362800BA40F4 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = "Sumit Gupta";
+				TargetAttributes = {
+					F7DD7DEF199B362800BA40F4 = {
+						TestTargetID = F7DD7DCE199B362800BA40F4;
+					};
+				};
+			};
+			buildConfigurationList = F7DD7DCA199B362800BA40F4 /* Build configuration list for PBXProject "VideoInset" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = F7DD7DC6199B362800BA40F4;
+			productRefGroup = F7DD7DD0199B362800BA40F4 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F7DD7DCE199B362800BA40F4 /* VideoInset */,
+				F7DD7DEF199B362800BA40F4 /* VideoInsetTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F7DD7DCD199B362800BA40F4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F7DD7DEB199B362800BA40F4 /* Images.xcassets in Resources */,
+				F7DD7DDD199B362800BA40F4 /* InfoPlist.strings in Resources */,
+				F7DD7DE6199B362800BA40F4 /* Main.storyboard in Resources */,
+				F7DD7E32199B363A00BA40F4 /* CTAssetsPicker.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F7DD7DEE199B362800BA40F4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F7DD7DFC199B362800BA40F4 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F7DD7DCB199B362800BA40F4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F7E13865199B8EC4000AB050 /* VTime.m in Sources */,
+				F7DD7E30199B363A00BA40F4 /* CTAssetsGroupViewController.m in Sources */,
+				F7DD7E31199B363A00BA40F4 /* CTAssetsPageViewController.m in Sources */,
+				F7DD7E36199B363A00BA40F4 /* CTAssetsViewCell.m in Sources */,
+				F7DD7E2F199B363A00BA40F4 /* CTAssetsGroupViewCell.m in Sources */,
+				F7DD7E39199B363A00BA40F4 /* NSDateFormatter+timeIntervalFormatter.m in Sources */,
+				F7DD7E33199B363A00BA40F4 /* CTAssetsPickerConstants.m in Sources */,
+				F7DD7E2B199B363A00BA40F4 /* ALAsset+isEqual.m in Sources */,
+				F7DD7E41199B744000BA40F4 /* MBProgressHUD.m in Sources */,
+				F7DD7E2C199B363A00BA40F4 /* ALAssetsGroup+isEqual.m in Sources */,
+				F7DD7DE9199B362800BA40F4 /* ViewController.m in Sources */,
+				F7DD7E35199B363A00BA40F4 /* CTAssetsSupplementaryView.m in Sources */,
+				F7DD7E2D199B363A00BA40F4 /* CTAssetItemViewController.m in Sources */,
+				F72220F3199C80D8001449BA /* UIImagePickerController+oritation.m in Sources */,
+				F7DD7DE3199B362800BA40F4 /* AppDelegate.m in Sources */,
+				F7DD7E2E199B363A00BA40F4 /* CTAssetScrollView.m in Sources */,
+				F7DD7E2A199B363A00BA40F4 /* ALAsset+assetType.m in Sources */,
+				F7FD26AE19A477A70058D3C5 /* MainViewController.m in Sources */,
+				F7FD26AB19A472D80058D3C5 /* StartViewController.m in Sources */,
+				F7DD7E48199B77B700BA40F4 /* VideoPlayerViewController.m in Sources */,
+				F7DD7E34199B363A00BA40F4 /* CTAssetsPickerController.m in Sources */,
+				F7DD7DDF199B362800BA40F4 /* main.m in Sources */,
+				F7DD7E37199B363A00BA40F4 /* CTAssetsViewController.m in Sources */,
+				1FBF73861A25B8DC00B88AAB /* CommonVC.m in Sources */,
+				F7DD7E29199B363A00BA40F4 /* ALAsset+accessibilityLabel.m in Sources */,
+				F7DD7E38199B363A00BA40F4 /* CTAssetsViewControllerTransition.m in Sources */,
+				F7DD7E47199B77B700BA40F4 /* VideoPlayerView.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F7DD7DEC199B362800BA40F4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F7DD7DFE199B362800BA40F4 /* VideoInsetTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		F7DD7DF6199B362800BA40F4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F7DD7DCE199B362800BA40F4 /* VideoInset */;
+			targetProxy = F7DD7DF5199B362800BA40F4 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		F7DD7DDB199B362800BA40F4 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F7DD7DDC199B362800BA40F4 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		F7DD7DE4199B362800BA40F4 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F7DD7DE5199B362800BA40F4 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		F7DD7DFA199B362800BA40F4 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F7DD7DFB199B362800BA40F4 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		F7DD7DFF199B362800BA40F4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer: sumit gupta (BP9R4JEL9R)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: sumit gupta (BP9R4JEL9R)";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "6aab64a7-660b-4514-80fb-2c4477f4d8ec";
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		F7DD7E00199B362800BA40F4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer: sumit gupta (BP9R4JEL9R)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: sumit gupta (BP9R4JEL9R)";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				PROVISIONING_PROFILE = "6aab64a7-660b-4514-80fb-2c4477f4d8ec";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		F7DD7E02199B362800BA40F4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Sandeep Garg (RL4GZ69JXL)";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "VideoInset/VideoInset-Prefix.pch";
+				INFOPLIST_FILE = "VideoInset/VideoInset-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "6aab64a7-660b-4514-80fb-2c4477f4d8ec";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		F7DD7E03199B362800BA40F4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Sandeep Garg (RL4GZ69JXL)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Sandeep Garg (RL4GZ69JXL)";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "VideoInset/VideoInset-Prefix.pch";
+				INFOPLIST_FILE = "VideoInset/VideoInset-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "6aab64a7-660b-4514-80fb-2c4477f4d8ec";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		F7DD7E05199B362800BA40F4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/VideoInset.app/VideoInset";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "VideoInset/VideoInset-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "VideoInsetTests/VideoInsetTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		F7DD7E06199B362800BA40F4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/VideoInset.app/VideoInset";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "VideoInset/VideoInset-Prefix.pch";
+				INFOPLIST_FILE = "VideoInsetTests/VideoInsetTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F7DD7DCA199B362800BA40F4 /* Build configuration list for PBXProject "VideoInset" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F7DD7DFF199B362800BA40F4 /* Debug */,
+				F7DD7E00199B362800BA40F4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F7DD7E01199B362800BA40F4 /* Build configuration list for PBXNativeTarget "VideoInset" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F7DD7E02199B362800BA40F4 /* Debug */,
+				F7DD7E03199B362800BA40F4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F7DD7E04199B362800BA40F4 /* Build configuration list for PBXNativeTarget "VideoInsetTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F7DD7E05199B362800BA40F4 /* Debug */,
+				F7DD7E06199B362800BA40F4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = F7DD7DC7199B362800BA40F4 /* Project object */;
+}

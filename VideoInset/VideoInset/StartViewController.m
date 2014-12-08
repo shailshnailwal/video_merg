@@ -40,7 +40,7 @@
     
     AppDelegate *appDel=(AppDelegate*)[[UIApplication sharedApplication] delegate];
     CTAssetsPickerController *picker = [[CTAssetsPickerController alloc] init];
-    picker.assetsFilter         = [ALAssetsFilter allVideos];
+//    picker.assetsFilter         = [ALAssetsFilter allVideos];
     picker.showsCancelButton    = (UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPad);
     picker.delegate             = self;
     picker.selectedAssets       = [NSMutableArray arrayWithArray:appDel.assets];

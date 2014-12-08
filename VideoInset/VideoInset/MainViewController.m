@@ -13,13 +13,14 @@
 
 #define FLOATING_VIDEO_SCALE_FACTOR .12
 #define MAIN_VIDEO_SCALE_FACTOR 1.5
+#define IMAGE_TIME 3.0
 
 
 @implementation MainViewController
 
 @synthesize overlaye;
 @synthesize moviePlayer,arrRanges;
-@synthesize playBackTime;
+@synthesize playBackTimeInfo;
 @synthesize recordedVideoURL;
 @synthesize startTime;
 @synthesize cameraPicker;
@@ -39,13 +40,13 @@
     
     self.arrRanges=[[NSMutableArray alloc] init ];
     
-    self.playBackTime=[[NSMutableDictionary alloc] init];
+    self.playBackTimeInfo=[[NSMutableDictionary alloc] init];
     
     _videoBtnList = [[NSMutableArray alloc] init];
     _sequenceList = [[NSMutableArray alloc] init];
     
-    [self.playBackTime setObject:@"0" forKey:@"AS1"];
-    [self.playBackTime setObject:@"0" forKey:@"AS2"];
+    [self.playBackTimeInfo setObject:@"0" forKey:@"AS1"];
+    [self.playBackTimeInfo setObject:@"0" forKey:@"AS2"];
     
     _mergeBtn.superview.layer.borderWidth  = 2.0f;
     _mergeBtn.superview.layer.borderColor  = [UIColor lightGrayColor].CGColor;
@@ -83,7 +84,6 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(captureFailed:) name:AVCaptureSessionRuntimeErrorNotification object:nil];
 }
 
-
 - (void)viewWillDisappear:(BOOL)animated{
     
     App_Delegate.orientationDelegate = nil;
@@ -105,21 +105,30 @@
     for(id obj in appDel.assets)
     {
         
-        [self.playBackTime setObject:@"0" forKey:[NSString stringWithFormat:@"AS%d",count + 1]];
+        [self.playBackTimeInfo setObject:@"0" forKey:[NSString stringWithFormat:@"AS%d",count + 1]];
         
-        ALAsset *assest1=obj;
+        ALAsset *asset1=obj;
         
-        NSLog(@"Asset orientation = %@", NSStringFromCGSize(assest1.defaultRepresentation.dimensions));
+        BOOL isImage = [self isImageAsset:asset1];
         
-        UIButton *btn=[[UIButton alloc]initWithFrame:CGRectMake(0, 2, 36, 54)];
-        [btn setImage:[UIImage imageWithCGImage:assest1.thumbnail scale:1.0 orientation:UIImageOrientationUp] forState:UIControlStateNormal];
+//        NSLog(@"Asset orientation = %@", NSStringFromCGSize(assest1.defaultRepresentation.dimensions));
+        
+        MediaButton *btn=[[MediaButton alloc]initWithFrame:CGRectMake(0, 2, 36, 54)];
+        [btn setImage:[UIImage imageWithCGImage:asset1.thumbnail scale:1.0 orientation:UIImageOrientationUp] forState:UIControlStateNormal];
         
         [btn addTarget:self action:@selector(btnVideoItemPressed:) forControlEvents:UIControlEventTouchUpInside];
         
         [btn setTag:count];
-        NSLog(@"Btn Tag is :%ld",(long)btn.tag);
+//        NSLog(@"Btn Tag is :%ld",(long)btn.tag);
         //btn.tag=count;
-        
+        if (isImage) {
+            
+            btn.mediaButtonType = MediaButtonTypeImage;
+        }
+        else{
+            
+            btn.mediaButtonType = MediaButtonTypeVideo;
+        }
         
         view = [[UIView alloc] initWithFrame:CGRectMake(count * totalWidth, 0, totalWidth - 2, _scrollView.frame.size.height)];
         [view addSubview:btn];
@@ -148,9 +157,12 @@
     return [UIApplication sharedApplication].keyWindow.rootViewController;
 }
 
+- (BOOL) isImageAsset:(ALAsset *)asset{
+    
+    return asset && [asset isKindOfClass:[ALAsset class]] && [[asset valueForProperty:ALAssetPropertyType] isEqualToString:ALAssetTypePhoto];
+}
 
--(IBAction)showCamera:(id)sender
-{
+-(IBAction)showCamera:(id)sender{
     
     AppDelegate *appDel=(AppDelegate*)[[UIApplication sharedApplication] delegate];
     ALAsset *assest1=[appDel.assets objectAtIndex:0];
@@ -169,9 +181,9 @@
     [self removeBorderToButton:self.btn2];
     [self addBorderToButton:self.btn1];
     
-    self.startTime=kCMTimeZero;
-    self.btn1.enabled=false;
-    self.btn2.enabled=true;
+    self.startTime = kCMTimeZero;
+    self.btn1.enabled = false;
+    self.btn2.enabled = true;
 
 #if !TARGET_IPHONE_SIMULATOR
     self.cameraPicker                       = [[UIImagePickerController alloc] init];
@@ -212,6 +224,33 @@
         /**/
         [self showSelectedItems];
         [self performSelector:@selector(showOptions) withObject:nil afterDelay:.2f];
+        
+//        NSLog(@"Camera inners ----- %@", self.cameraPicker.viewControllers);
+//        
+//        UIViewController *innerController = [self.cameraPicker.viewControllers objectAtIndex:0];
+//        
+//        NSLog(@"controller views = %@", innerController.view.subviews);
+//        
+//        UIView *firstView = [innerController.view.subviews objectAtIndex:0];
+//        UIView *secondView = [innerController.view.subviews objectAtIndex:1];
+//        
+//        firstView.backgroundColor = [UIColor redColor];
+//        
+//        
+//        
+//        NSLog(@"first view innner = %@", firstView.subviews);
+//        
+//        UIView *firstInner = [firstView.subviews objectAtIndex:0];
+////        firstInner.frame = CGRectMake(10, 10, 180, 180);
+//        
+//        
+//        NSLog(@"first inner innner = %@", firstInner.subviews);
+//        
+//        
+//        secondView.backgroundColor = [UIColor clearColor];
+//        
+//        firstView.frame = CGRectMake(0, 100, 200, 200);
+//        secondView.frame = CGRectMake(0, 200, 200, 200);
     }];
 #endif
 }
@@ -235,6 +274,7 @@
     
     [self btnVideoItemPressed:_videoBtnList.firstObject];
     [self.cameraPicker startVideoCapture];
+//    [self initCapture];
 }
 
 
@@ -269,8 +309,6 @@
     
     moviePlayer = [[MPMoviePlayerController alloc] initWithContentURL:url];
     
-    
-    
     [[MPMusicPlayerController applicationMusicPlayer] setVolume:0.0];
     
     [[moviePlayer view] setFrame:_floatingPlayerFrame];
@@ -287,8 +325,8 @@
     [[btn layer] setBorderColor:[UIColor greenColor].CGColor];
 }
 
--(void)removeBorderToButton:(UIButton*)btn
-{
+-(void)removeBorderToButton:(UIButton*)btn{
+    
     [[btn layer] setBorderWidth:0.0f];
     [[btn layer] setBorderColor:[UIColor greenColor].CGColor];
 }
@@ -296,60 +334,93 @@
 
 -(IBAction)addCameraVideo:(UIButton *)sender{
     
-    
+    [moviePlayer pause];
 }
 
-
--(IBAction)btnVideoItemPressed:(id)sender{
+-(IBAction)btnVideoItemPressed:(MediaButton *)sender{
     
     UIButton *btn=(UIButton*)sender;
     
     [_sequenceList addObject:[NSNumber numberWithInt:(int)btn.tag]];
-
-    CMTime currentTime=CMTimeMakeWithSeconds(CMTimeGetSeconds(kCMTimeZero) + self.moviePlayer.currentPlaybackTime,600);
     
-    VTime *timeRange=[[VTime alloc] init];
-    timeRange.startTime=self.startTime;
-    timeRange.endTime=currentTime;
-    [self.arrRanges addObject:timeRange];
-    
-    AppDelegate *appDel=(AppDelegate*)[[UIApplication sharedApplication] delegate];
-    
-    NSLog(@"get button tag = %ld", (long)btn.tag);
-    
-    NSString *keyString = nil;
-    UIButton *button = nil;
-    
-    for (int i = 0; _videoBtnList && i < _videoBtnList.count; i ++) {
-        
-        button = [_videoBtnList objectAtIndex:i];
-        keyString = [NSString stringWithFormat:@"AS%ld", (long)(button.tag + 1)];
-        
-        if ([keyString isEqualToString:[NSString stringWithFormat:@"AS%ld", (long)(btn.tag + 1)]]) {
-            
-            btn.enabled=NO;
-            [self addBorderToButton:btn];
-        }
-        else{
-            
-            [self.playBackTime setObject:[NSString stringWithFormat:@"%f",self.moviePlayer.currentPlaybackTime] forKey:keyString];
-            
-            [self removeBorderToButton:button];
-            button.enabled = YES;
-        }
-    }
-    
-    ALAsset *assest = [appDel.assets objectAtIndex:btn.tag];
-    ALAssetRepresentation *representation = [assest defaultRepresentation];
+    ALAsset *asset = [App_Delegate.assets objectAtIndex:btn.tag];
+    ALAssetRepresentation *representation = [asset defaultRepresentation];
     NSURL *url = [representation url];
     
-    [self.moviePlayer setContentURL:url];
-    float lastPlayBack=[[self.playBackTime objectForKey:[NSString stringWithFormat:@"AS%ld", (long)(btn.tag + 1)]] floatValue];
-    self.moviePlayer.initialPlaybackTime=lastPlayBack;
-    self.startTime=CMTimeMakeWithSeconds(CMTimeGetSeconds(kCMTimeZero) + lastPlayBack,600);
-    [self.moviePlayer play];
+    _isImage = [self isImageAsset:asset];
+
+    CMTime currentTime;//CMTimeMakeWithSeconds(CMTimeGetSeconds(kCMTimeZero) + self.moviePlayer.currentPlaybackTime,600);
     
-    NSLog(@"time ranges %@",self.arrRanges);
+    VTime *timeRange=[[VTime alloc] init];
+    [self.arrRanges addObject:timeRange];
+    
+    if (_isImage) {
+        
+        _imagePicked ++;
+        NSLog(@"--------- %d", _imagePicked);
+        NSString *keyString = nil;
+        UIButton *button = nil;
+        
+        for (int i = 0; _videoBtnList && i < _videoBtnList.count; i ++) {
+            
+            button = [_videoBtnList objectAtIndex:i];
+            keyString = [NSString stringWithFormat:@"AS%ld", (long)(button.tag + 1)];
+            
+            if ([keyString isEqualToString:[NSString stringWithFormat:@"AS%ld", (long)(btn.tag + 1)]]) {
+                
+                btn.enabled=NO;
+                [self addBorderToButton:btn];
+            }
+            else{
+                
+                [self removeBorderToButton:button];
+                button.enabled = YES;
+            }
+        }
+        
+        [moviePlayer pause];
+    }
+    else{
+        
+        currentTime = CMTimeMakeWithSeconds(CMTimeGetSeconds(kCMTimeZero) + self.moviePlayer.currentPlaybackTime,600);
+        
+        timeRange.startTime = self.startTime;
+        timeRange.endTime = currentTime;
+        
+        NSString *keyString = nil;
+        UIButton *button = nil;
+        
+        for (int i = 0; _videoBtnList && i < _videoBtnList.count; i ++) {
+            
+            button = [_videoBtnList objectAtIndex:i];
+            keyString = [NSString stringWithFormat:@"AS%ld", (long)(button.tag + 1)];
+            
+            if ([keyString isEqualToString:[NSString stringWithFormat:@"AS%ld", (long)(btn.tag + 1)]]) {
+                
+                btn.enabled=NO;
+                [self addBorderToButton:btn];
+            }
+            else{
+                
+                [self.playBackTimeInfo setObject:[NSString stringWithFormat:@"%f",self.moviePlayer.currentPlaybackTime] forKey:keyString];
+                
+                [self removeBorderToButton:button];
+                button.enabled = YES;
+            }
+        }
+        
+        [self.moviePlayer setContentURL:url];
+        float lastPlayBack=[[self.playBackTimeInfo objectForKey:[NSString stringWithFormat:@"AS%ld", (long)(btn.tag + 1)]] floatValue];
+        self.moviePlayer.initialPlaybackTime = lastPlayBack;
+        
+        self.startTime = CMTimeMakeWithSeconds(CMTimeGetSeconds(kCMTimeZero) + lastPlayBack + 2 * _imagePicked, 600);
+        [self.moviePlayer play];
+        
+//        NSLog(@"time ranges %@",self.arrRanges);
+        
+        _totalPicked ++;
+    }
+//    NSLog(@"-------  get button tag = %@", timeRange);
 }
 
 
@@ -368,39 +439,46 @@
     ALAsset *assest2=[App_Delegate.assets lastObject];
     ALAssetRepresentation *representation2 = [assest2 defaultRepresentation];
     NSURL *url2 = [representation2 url];
+    
     [self mergeVideosOneURLWorking:url1 andVideoTwoURL:url2];
 }
 
 - (void) mergeVideosOneURLWorking:(NSURL *)videoOneURL andVideoTwoURL:(NSURL *)videoTwoURL {
     //Here we load our movie Assets using AVURLAsset
 //-(void) mergeVideoURLsFromURLList:(NSArray *)urlList{
+    
     NSLog(@"start export");
     //addedd ProgressHud
+    
+    CGRect screenFrame = [UIScreen mainScreen].bounds;
+    
     MBProgressHUD*hud= [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.labelText=@"Processing...";
     
     AVMutableComposition*         mixComposition;
-    AVMutableVideoComposition*    mainComposition;
+    AVMutableVideoComposition*    mainComposition = [AVMutableVideoComposition videoComposition];
+    mainComposition.frameDuration   = CMTimeMake(1, 30);
+    mainComposition.renderSize      = CGSizeMake(400, 600);
     
     AVAsset *sourceAsset;
     AVAsset *firstAsset;
     AVAsset *secondAsset;
     AVAsset *thirdAsset = [AVAsset assetWithURL:self.recordedVideoURL];
     
+    
     if (videoOneURL!= nil && videoTwoURL!=nil) {
         
         //First Video
         //firstAsset = [AVURLAsset URLAssetWithURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"sample1" ofType:@"m4v"]] options:nil];
-        NSLog(@"First Asset = %@",firstAsset);
+//        NSLog(@"First Asset = %@",firstAsset);
         
         firstAsset = [AVAsset assetWithURL:videoOneURL];
         
         //second Video
         //secondAsset = [AVURLAsset URLAssetWithURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"sample2" ofType:@"m4v"]] options:nil];
-        NSLog(@"second Asset = %@",secondAsset);
+//        NSLog(@"second Asset = %@",secondAsset);
         secondAsset = [AVAsset assetWithURL:videoTwoURL];
     }
-    
     
     CGSize temp ;
     CGSize size ;
@@ -419,7 +497,6 @@
         AVMutableVideoCompositionInstruction *mainInstruction = [AVMutableVideoCompositionInstruction videoCompositionInstruction];
         
         NSMutableArray *arrInstructions=[[NSMutableArray alloc] init ];
-        int i=0;
         float seconds=5;
         CMTime atTime=CMTimeMakeWithSeconds(CMTimeGetSeconds(kCMTimeZero) + seconds,firstAsset.duration.timescale);
         
@@ -427,92 +504,217 @@
         float secondPassed=0;
         CMTime start=kCMTimeZero;
         
+        CALayer *parentLayer = [CALayer layer];
+        CALayer *videoLayer = [CALayer layer];
+        parentLayer.frame = CGRectMake(0,
+                                       0,
+                                       mainComposition.renderSize.width,
+                                       mainComposition.renderSize.height);
+        videoLayer.frame = CGRectMake(0,
+                                      0,
+                                      mainComposition.renderSize.width,
+                                      mainComposition.renderSize.height);
+        [parentLayer addSublayer:videoLayer];
+        
+        int i=0;
 //        for (int k=0;k<3;k++) {
+        int imageNumber = 0;
         for (VTime *timeRange in self.arrRanges) {
-            
-            CMTime sTime=timeRange.startTime;
-            CMTime eTime=timeRange.endTime;
             
             NSNumber *currentVideoIndex = [_sequenceList objectAtIndex:i];
             
             ALAsset *assest2=[App_Delegate.assets objectAtIndex:currentVideoIndex.integerValue];
-            ALAssetRepresentation *representation2 = [assest2 defaultRepresentation];
-            NSURL *url = [representation2 url];
             
-            sourceAsset = [AVAsset assetWithURL:url];
+            MediaButton *mButton = [_videoBtnList objectAtIndex:currentVideoIndex.intValue];
             
-            seconds = CMTimeGetSeconds(eTime) - CMTimeGetSeconds(sTime);
-            
-            atTime = CMTimeMakeWithSeconds(CMTimeGetSeconds(kCMTimeZero) + secondPassed,sourceAsset.duration.timescale);
-            secondPassed=secondPassed+seconds;
-            
-            AVMutableCompositionTrack *firstTrack =
-            [mixComposition addMutableTrackWithMediaType:AVMediaTypeVideo
-                                        preferredTrackID:kCMPersistentTrackID_Invalid];
-            
-            AVMutableCompositionTrack *firstTrackAudio =
-            [mixComposition addMutableTrackWithMediaType:AVMediaTypeAudio
-                                        preferredTrackID:kCMPersistentTrackID_Invalid];
-
-            CMTimeRange firstRange=CMTimeRangeFromTimeToTime(sTime, eTime);
-
-            [firstTrack insertTimeRange:firstRange
+            if (mButton.mediaButtonType == MediaButtonTypeVideo) {
+                
+                CMTime sTime = timeRange.startTime;
+                CMTime eTime = timeRange.endTime;
+                ALAssetRepresentation *representation2 = [assest2 defaultRepresentation];
+                NSURL *url = [representation2 url];
+                
+                sourceAsset = [AVAsset assetWithURL:url];
+                
+                seconds = CMTimeGetSeconds(eTime) - CMTimeGetSeconds(sTime);
+                
+                atTime = CMTimeMakeWithSeconds(CMTimeGetSeconds(kCMTimeZero) + secondPassed,sourceAsset.duration.timescale);
+                
+//                NSLog(@"--------- added at time = %lld", atTime.value);
+                
+                secondPassed = secondPassed + seconds;
+                
+                NSLog(@"seconds passed = %f", secondPassed);
+                
+                AVMutableCompositionTrack *firstTrack =
+                [mixComposition addMutableTrackWithMediaType:AVMediaTypeVideo
+                                            preferredTrackID:kCMPersistentTrackID_Invalid];
+                
+                AVMutableCompositionTrack *firstTrackAudio =
+                [mixComposition addMutableTrackWithMediaType:AVMediaTypeAudio
+                                            preferredTrackID:kCMPersistentTrackID_Invalid];
+                
+                CMTimeRange firstRange = CMTimeRangeFromTimeToTime(sTime, eTime);
+                
+                [firstTrack insertTimeRange:firstRange
                                     ofTrack:[[sourceAsset tracksWithMediaType:AVMediaTypeVideo]
                                              objectAtIndex:0]
                                      atTime:atTime
                                       error:nil];
-            
-            [firstTrackAudio insertTimeRange:firstRange
-                                ofTrack:[[sourceAsset tracksWithMediaType:AVMediaTypeAudio]
-                                         objectAtIndex:0]
-                                 atTime:atTime
-                                  error:nil];
-
-            
-            //Duraton For Final Video should be max Duration of both video
-            //InstructionLayer for first Track
-            
-            AVMutableVideoCompositionLayerInstruction *firstlayerInstruction = [AVMutableVideoCompositionLayerInstruction videoCompositionLayerInstructionWithAssetTrack:firstTrack];
-            
-            CGAffineTransform scale  = CGAffineTransformMakeScale(FLOATING_VIDEO_SCALE_FACTOR,
-                                                                  FLOATING_VIDEO_SCALE_FACTOR);
-            
-            // for iPhone 4
-//            CGAffineTransform rotate = CGAffineTransformMakeRotation(90 * M_PI/180.0);
-//            CGAffineTransform move   = CGAffineTransformMakeTranslation(160, 10);
-            
-            // for iPhone 5
-            CGAffineTransform rotate = CGAffineTransformMakeRotation(0 * M_PI/180.0);
-            CGAffineTransform move   = CGAffineTransformMakeTranslation(10, 10);
-            
-            // Rotate video if it was made in different orientation
-            if (assest2.defaultRepresentation.dimensions.width < assest2.defaultRepresentation.dimensions.height) {
                 
-                rotate = CGAffineTransformMakeRotation(90 * M_PI/180.0);
-                move   = CGAffineTransformMakeTranslation(10 + assest2.defaultRepresentation.dimensions.width * FLOATING_VIDEO_SCALE_FACTOR, 10);
+                [firstTrackAudio insertTimeRange:firstRange
+                                         ofTrack:[[sourceAsset tracksWithMediaType:AVMediaTypeAudio]
+                                                  objectAtIndex:0]
+                                          atTime:atTime
+                                           error:nil];
+                
+                
+                //Duraton For Final Video should be max Duration of both video
+                //InstructionLayer for first Track
+                
+                AVMutableVideoCompositionLayerInstruction *firstlayerInstruction = [AVMutableVideoCompositionLayerInstruction videoCompositionLayerInstructionWithAssetTrack:firstTrack];
+                
+                CGAffineTransform scale  = CGAffineTransformMakeScale(FLOATING_VIDEO_SCALE_FACTOR,
+                                                                      FLOATING_VIDEO_SCALE_FACTOR);
+                
+                // for iPhone 5
+                CGAffineTransform rotate = CGAffineTransformMakeRotation(0 * M_PI/180.0);
+                CGAffineTransform move   = CGAffineTransformMakeTranslation(10, 10);
+                
+                // Rotate video if it was made in different orientation
+                if (assest2.defaultRepresentation.dimensions.width < assest2.defaultRepresentation.dimensions.height) {
+                    
+                    rotate = CGAffineTransformMakeRotation(90 * M_PI/180.0);
+                    move   = CGAffineTransformMakeTranslation(10 + assest2.defaultRepresentation.dimensions.width * FLOATING_VIDEO_SCALE_FACTOR, 10);
+                }
+                
+                CGAffineTransform mix = CGAffineTransformConcat(scale, rotate);
+                mix = CGAffineTransformConcat(mix, move);
+                
+                [firstlayerInstruction setTransform:mix atTime:atTime];
+                
+                start=CMTimeAdd(sTime, firstRange.duration);
+                CMTime at2=CMTimeAdd(atTime, firstRange.duration);
+                
+                CGAffineTransform new2 = CGAffineTransformConcat(transform, CGAffineTransformMakeScale(0,0));
+                
+                NSLog(@"%lld ------", at2.value);
+                
+                [firstlayerInstruction setTransform:new2 atTime:at2];
+                
+                [arrInstructions addObject:firstlayerInstruction];
+                secondsTotal=secondsTotal+seconds;
+            }
+            else if(mButton.mediaButtonType == MediaButtonTypeImage){
+             
+                imageNumber ++;
+                
+                seconds = IMAGE_TIME;
+                
+                atTime = CMTimeMakeWithSeconds(CMTimeGetSeconds(kCMTimeZero) + secondPassed,600);
+                
+                secondPassed = secondPassed + seconds;
+                secondsTotal=secondsTotal+seconds;
+                
+                
+//                NSLog(@"seconds pass for image = %f", secondPassed);
+                
+                
+                /*water mark*/
+                
+                CALayer *watermarkLayer = [CALayer layer];
+                
+                
+                NSLog(@"image frames = %@", NSStringFromCGRect(watermarkLayer.frame));
+                
+                
+//                watermarkLayer.frame  = CGRectMake(5, 0, 320, 480);
+//                watermarkLayer.bounds = CGRectMake(5, 0, 320, 480);
+                
+                watermarkLayer.frame = CGRectMake(0, 0, mButton.imageView.image.size.width, mButton.imageView.image.size.height);
+               
+                
+//                if (i % 2 == 0) {
+//                    
+//                    watermarkLayer.contents = (id) [UIImage imageNamed:@"Cartoon-hd-blooms-wallpapers.jpg"].CGImage;
+//                }
+//                else{
+//                    
+//                     watermarkLayer.contents = (id) [UIImage imageNamed:@"1407887392_542709.jpg"].CGImage;
+//                }
+                
+                watermarkLayer.contents = (id) mButton.imageView.image.CGImage;
+                watermarkLayer.opacity = 0.0;
+                watermarkLayer.backgroundColor = [UIColor clearColor].CGColor;
+                
+//                watermarkLayer.position =
+//                CGPointMake(10,
+//                            mainComposition.renderSize.height);
+                
+                
+                
+                
+                
+                /**/
+                
+//                CGAffineTransform scale  = CGAffineTransformMakeScale(FLOATING_VIDEO_SCALE_FACTOR,
+//                                                                      FLOATING_VIDEO_SCALE_FACTOR);
+                
+                CATransform3D scale = CATransform3DMakeScale(1, 1, 1);
+//                CGAffineTransform rotate = CGAffineTransformMakeRotation(0 * M_PI/180.0);
+                CATransform3D rotate   = CATransform3DMakeRotation(0 * M_PI / 180.0, 0, 0, 1);
+//                CGAffineTransform move   = CGAffineTransformMakeTranslation(10, 10);
+                
+                NSLog(@"%@------------ %@", NSStringFromCGRect(screenFrame), NSStringFromCGSize(mButton.imageView.image.size));
+                
+                CATransform3D move = CATransform3DMakeTranslation(10, mainComposition.renderSize.height - mButton.imageView.image.size.height - 10, 0);
+                
+                if (mButton.imageView.image.size.width < mButton.imageView.image.size.height) {
+                    
+//                    rotate = CGAffineTransformMakeRotation(90 * M_PI/180.0);
+                    
+                    rotate = CATransform3DMakeRotation(90 * M_PI / 180.0, 0, 0, 1);
+//                    move   = CGAffineTransformMakeTranslation(10 + assest2.defaultRepresentation.dimensions.width * FLOATING_VIDEO_SCALE_FACTOR, 10);
+                    
+                    move = CATransform3DMakeTranslation(10 + mButton.imageView.image.size.width * FLOATING_VIDEO_SCALE_FACTOR, 10, 0);
+                }
+                
+                CATransform3D mix = CATransform3DConcat(scale, rotate);
+                mix = CATransform3DConcat(mix, move);
+                
+                watermarkLayer.transform = mix;
+                
+                /**/
+                
+                [parentLayer addSublayer:watermarkLayer];
+                
+                
+                CABasicAnimation *fadeAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
+                
+                fadeAnimation.fromValue = [NSNumber numberWithFloat:(float)0.0];
+                fadeAnimation.toValue   = [NSNumber numberWithFloat:(float)1];
+                fadeAnimation.additive  = NO;
+                fadeAnimation.beginTime = secondPassed - seconds;
+                fadeAnimation.duration  = IMAGE_TIME;
+                fadeAnimation.fillMode  = kCAFillModeBoth;
+                fadeAnimation.removedOnCompletion = YES;
+                [watermarkLayer addAnimation:fadeAnimation forKey:nil];
+                
+                mainComposition.animationTool = [AVVideoCompositionCoreAnimationTool
+                                                 videoCompositionCoreAnimationToolWithPostProcessingAsVideoLayer:videoLayer
+                                                 inLayer:parentLayer];
+                
+                /**/
             }
             
-            CGAffineTransform mix = CGAffineTransformConcat(scale, rotate);
-            mix = CGAffineTransformConcat(mix, move);
-            
-            [firstlayerInstruction setTransform:mix atTime:atTime];
-
-            start=CMTimeAdd(sTime, firstRange.duration);
-            CMTime at2=CMTimeAdd(atTime, firstRange.duration);
-            
-            CGAffineTransform new2 = CGAffineTransformConcat(transform, CGAffineTransformMakeScale(0,0));
-            [firstlayerInstruction setTransform:new2 atTime:at2];
-
-            [arrInstructions addObject:firstlayerInstruction];
-            i ++ ;
-            secondsTotal=secondsTotal+seconds;
+            i ++;
         }
         
         //  finalDuration = CMTimeAdd(firstRange.duration, secondRange.duration);
         CMTimeRange rangeFinal=CMTimeRangeMake(kCMTimeZero, CMTimeMakeWithSeconds(CMTimeGetSeconds(kCMTimeZero) + secondsTotal,sourceAsset.duration.timescale));
         
         mainInstruction.timeRange =rangeFinal;
-
+        
         ///
         //        LEFT SIDE VIDEOS
         //InstructionLayer for second Track
@@ -521,8 +723,9 @@
         
         AVMutableCompositionTrack *thirdTrackAudio = [mixComposition addMutableTrackWithMediaType:AVMediaTypeAudio preferredTrackID:kCMPersistentTrackID_Invalid];
         
-        NSLog(@"Audio check = %f", thirdTrackAudio.preferredVolume);
         
+        
+        NSLog(@"Audio check = %f", thirdTrackAudio.preferredVolume);
         
         CMTime thirdTime=CMTimeMakeWithSeconds(CMTimeGetSeconds(rangeFinal.duration) ,secondAsset.duration.timescale);
         CMTimeRange thirdRange=CMTimeRangeMake(kCMTimeZero, thirdTime);
@@ -537,26 +740,33 @@
                              atTime:kCMTimeZero
                               error:nil];
         
-//        thirdTrack.preferredTransform = CGAffineTransformMakeRotation(M_PI);
+        NSString* musicPath = [[NSBundle mainBundle] pathForResource:@"song"
+                                                              ofType:@"mp3"];
         
+        AVAsset *backgroundTrack = [AVAsset assetWithURL:[NSURL URLWithString:musicPath]];
+        NSLog(@"background track = %@", backgroundTrack);
+        
+        AVMutableCompositionTrack *thirdTrackBackgoundAudio = [mixComposition addMutableTrackWithMediaType:AVMediaTypeAudio preferredTrackID:kCMPersistentTrackID_Invalid];
+        
+        [thirdTrackBackgoundAudio insertTimeRange:CMTimeRangeMake(kCMTimeZero, backgroundTrack.duration)
+                                          ofTrack:[backgroundTrack trackWithTrackID:kCMPersistentTrackID_Invalid]
+                                           atTime:kCMTimeZero
+                                            error:nil];
+        
+//        [thirdTrackBackgoundAudio insertTimeRange:CMTimeRangeMake(kCMTimeZero, backgroundTrack.duration)
+//                               ofTrack:backgroundTrack atTime:kCMTimeZero error:nil];
+        
+//        [thirdTrackBackgoundAudio insertTimeRange:CMTimeRangeMake(kCMTimeZero, CMTimeAdd(firstAsset.duration, secondAsset.duration))
+//                            ofTrack:[[backgroundTrack tracksWithMediaType:AVMediaTypeAudio] objectAtIndex:0] atTime:kCMTimeZero error:nil];
         
         AVMutableVideoCompositionLayerInstruction *thirdlayerInstruction = [AVMutableVideoCompositionLayerInstruction videoCompositionLayerInstructionWithAssetTrack:thirdTrack];
-        
         
         CGAffineTransform thirdScale = CGAffineTransformMakeScale(MAIN_VIDEO_SCALE_FACTOR,
                                                                   MAIN_VIDEO_SCALE_FACTOR);
         
-        
-        // for iPhone 4
-//        CGAffineTransform thirdMove = CGAffineTransformMakeTranslation(427,0);
-//        CGAffineTransform forth     = CGAffineTransformMakeRotation(90 * M_PI / 180.0);
-        
         // for iPhone 5
         CGAffineTransform thirdMove = CGAffineTransformMakeTranslation(500,0);
         CGAffineTransform forth     = CGAffineTransformMakeRotation(90 * M_PI / 180.0);
-        
-        
-//        CGAffineTransform thirdMove = CGAffineTransformMakeRotation(M_PI / 2);
         
         //[secondlayerInstruction setOpacity:0.5 atTime:kCMTimeZero];
         temp = CGSizeApplyAffineTransform(thirdTrack.naturalSize, thirdTrack.preferredTransform);
@@ -579,10 +789,8 @@
         // attach Main Instrcution To VideoCopositionn
         //we can attch multipe Instrction to it
         
-        mainComposition = [AVMutableVideoComposition videoComposition];
+//        mainComposition = [AVMutableVideoComposition videoComposition];
         mainComposition.instructions = [NSArray arrayWithObjects:mainInstruction,nil];
-        mainComposition.frameDuration = CMTimeMake(1, 30);
-        mainComposition.renderSize = CGSizeMake(400, 600);
         
         //  Get path        
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -593,7 +801,7 @@
         NSFileManager *fileManager = [NSFileManager defaultManager];
         [fileManager removeItemAtPath:myPathDocs error:NULL];
         NSURL*  mainURL = [NSURL fileURLWithPath:myPathDocs];
-        NSLog(@"URL:-  %@", [mainURL description]);
+//        NSLog(@"URL:-  %@", [mainURL description]);
         
         //create Exporter
         AVAssetExportSession *exporter = [[AVAssetExportSession alloc] initWithAsset:mixComposition presetName:AVAssetExportPresetHighestQuality];
@@ -602,12 +810,16 @@
         exporter.shouldOptimizeForNetworkUse = YES;
         exporter.videoComposition = mainComposition;
         [exporter exportAsynchronouslyWithCompletionHandler:^{
+            
             dispatch_async(dispatch_get_main_queue(), ^{
+                
                 [self exportDidFinish:exporter];
                 NSLog(@"end export");
             });
         }];
-    }else {
+    }
+    else {
+        
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error!" message:@"Video Not Selected.PLease select videos to merege"
                                                        delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
@@ -625,7 +837,7 @@
     NSURL *vedioURL = session.outputURL.filePathURL;
     NSLog(@"vurl %@",vedioURL);
     
-    [[MPMusicPlayerController applicationMusicPlayer] setVolume:10.0];
+    [[MPMusicPlayerController applicationMusicPlayer] setVolume:.3f];
     
     MPMoviePlayerViewController *videoPlayerView = [[MPMoviePlayerViewController alloc] initWithContentURL:vedioURL];
     [self presentMoviePlayerViewControllerAnimated:videoPlayerView];
@@ -663,11 +875,6 @@
     
 }
 
-- (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection{
-    
-    
-}
-
 #pragma mark- Orientation Fixing
 //- (void)orientationDidChangedFromOrientation:(UIInterfaceOrientation)oldOrientation toOrientation:(UIInterfaceOrientation)currentOrientation{
 //    
@@ -687,4 +894,79 @@
 //    
 //    self.overlaye.frame = frame;
 //}
+
+#pragma mark-
+- (void)initCapture {
+    
+    AVCaptureDeviceInput *captureInput = [AVCaptureDeviceInput deviceInputWithDevice:[AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo] error:NULL];
+    
+    _capturedVideo = [[AVCaptureVideoDataOutput alloc] init];
+    [_capturedVideo setSampleBufferDelegate:self queue:dispatch_get_main_queue()];
+    
+    _capturedFile = [[AVCaptureMovieFileOutput alloc] init];
+    
+    NSString* key = (NSString*)kCVPixelBufferPixelFormatTypeKey;
+    NSNumber* value = [NSNumber numberWithUnsignedInt:kCVPixelFormatType_32BGRA];
+    NSDictionary* videoSettings = [NSDictionary dictionaryWithObject:value forKey:key];
+    
+    [_capturedVideo setVideoSettings:videoSettings];
+    
+    _captureSession = [[AVCaptureSession alloc] init];
+    
+    [_captureSession addInput:captureInput];
+    [_captureSession addOutput:_capturedFile];
+    [_captureSession addOutput:_capturedVideo];
+    
+    [_captureSession beginConfiguration];
+    [_captureSession setSessionPreset:AVCaptureSessionPresetLow];
+    [_captureSession commitConfiguration];
+    
+    [self performSelector:@selector(startRecording) withObject:nil afterDelay:10.0];
+    [self performSelector:@selector(stopRecording) withObject:nil afterDelay:15.0];
+    
+    [_captureSession startRunning];
+}
+
+
+- (void) startRecording
+{
+    [_capturedFile startRecordingToOutputFileURL:[self tempFileURL] recordingDelegate:self];
+    
+}
+
+- (void) stopRecording
+{
+    if([_capturedFile isRecording])
+        [_capturedFile stopRecording];
+    
+}
+
+
+- (NSURL *) tempFileURL
+{
+    NSString *outputPath = [[NSString alloc] initWithFormat:@"%@%@", NSTemporaryDirectory(), @"camera.mov"];
+    NSURL *outputURL = [[NSURL alloc] initFileURLWithPath:outputPath];
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    if ([fileManager fileExistsAtPath:outputPath])
+        [[NSFileManager defaultManager] removeItemAtPath:outputPath error:nil];
+        return outputURL;
+}
+    
+    
+    
+- (void)captureOutput:(AVCaptureFileOutput *)captureOutput didStartRecordingToOutputFileAtURL:(NSURL *)fileURL fromConnections:(NSArray *)connections
+{
+    NSLog(@"start record video");
+}
+    
+- (void)captureOutput:(AVCaptureFileOutput *)captureOutput didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL fromConnections:(NSArray *)connections error:(NSError *)error
+{
+    NSLog(@"end record");
+}
+    
+    
+- (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection
+{
+    // do stuff with sampleBuffer
+}
 @end

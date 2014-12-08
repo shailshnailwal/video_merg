@@ -7,7 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1F1BD4001A35D06C003FD8E9 /* song.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 1F1BD3FF1A35D06C003FD8E9 /* song.mp3 */; };
+		1F26D1A51A3180340083A780 /* MediaButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F26D1A41A3180340083A780 /* MediaButton.m */; };
+		1F26D1A71A31B2890083A780 /* 1407887392_542709.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1F26D1A61A31B2890083A780 /* 1407887392_542709.jpg */; };
 		1FBF73861A25B8DC00B88AAB /* CommonVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FBF73851A25B8DC00B88AAB /* CommonVC.m */; };
+		1FF721091A32E24C00AAF80A /* Cartoon-hd-blooms-wallpapers.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1FF721081A32E24C00AAF80A /* Cartoon-hd-blooms-wallpapers.jpg */; };
 		F72220F3199C80D8001449BA /* UIImagePickerController+oritation.m in Sources */ = {isa = PBXBuildFile; fileRef = F72220F2199C80D8001449BA /* UIImagePickerController+oritation.m */; };
 		F7DD7DD3199B362800BA40F4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7DD7DD2199B362800BA40F4 /* Foundation.framework */; };
 		F7DD7DD5199B362800BA40F4 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7DD7DD4199B362800BA40F4 /* CoreGraphics.framework */; };
@@ -62,8 +66,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1F1BD3FF1A35D06C003FD8E9 /* song.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = song.mp3; sourceTree = "<group>"; };
+		1F26D1A31A3180340083A780 /* MediaButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediaButton.h; sourceTree = "<group>"; };
+		1F26D1A41A3180340083A780 /* MediaButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MediaButton.m; sourceTree = "<group>"; };
+		1F26D1A61A31B2890083A780 /* 1407887392_542709.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 1407887392_542709.jpg; sourceTree = "<group>"; };
 		1FBF73841A25B8DC00B88AAB /* CommonVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonVC.h; sourceTree = "<group>"; };
 		1FBF73851A25B8DC00B88AAB /* CommonVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonVC.m; sourceTree = "<group>"; };
+		1FF721081A32E24C00AAF80A /* Cartoon-hd-blooms-wallpapers.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Cartoon-hd-blooms-wallpapers.jpg"; sourceTree = "<group>"; };
 		F72220F1199C80D8001449BA /* UIImagePickerController+oritation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImagePickerController+oritation.h"; sourceTree = "<group>"; };
 		F72220F2199C80D8001449BA /* UIImagePickerController+oritation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImagePickerController+oritation.m"; sourceTree = "<group>"; };
 		F7DD7DCF199B362800BA40F4 /* VideoInset.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VideoInset.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -162,9 +171,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1F26D1A21A3180070083A780 /* Custom */ = {
+			isa = PBXGroup;
+			children = (
+				1F26D1A31A3180340083A780 /* MediaButton.h */,
+				1F26D1A41A3180340083A780 /* MediaButton.m */,
+			);
+			path = Custom;
+			sourceTree = "<group>";
+		};
+		1F2E27371A30707A00C46582 /* iPad */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = iPad;
+			sourceTree = "<group>";
+		};
 		1FBF73831A25B8C500B88AAB /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				1F26D1A21A3180070083A780 /* Custom */,
 				1FBF73841A25B8DC00B88AAB /* CommonVC.h */,
 				1FBF73851A25B8DC00B88AAB /* CommonVC.m */,
 			);
@@ -174,6 +200,9 @@
 		F7DD7DC6199B362800BA40F4 = {
 			isa = PBXGroup;
 			children = (
+				1F1BD3FF1A35D06C003FD8E9 /* song.mp3 */,
+				1FF721081A32E24C00AAF80A /* Cartoon-hd-blooms-wallpapers.jpg */,
+				1F26D1A61A31B2890083A780 /* 1407887392_542709.jpg */,
 				1FBF73831A25B8C500B88AAB /* Common */,
 				F7DD7E42199B77B700BA40F4 /* VideoPlayer */,
 				F7DD7E3E199B744000BA40F4 /* MBProgressHUD */,
@@ -211,6 +240,7 @@
 		F7DD7DD8199B362800BA40F4 /* VideoInset */ = {
 			isa = PBXGroup;
 			children = (
+				1F2E27371A30707A00C46582 /* iPad */,
 				F7DD7DE1199B362800BA40F4 /* AppDelegate.h */,
 				F7DD7DE2199B362800BA40F4 /* AppDelegate.m */,
 				F7DD7DE4199B362800BA40F4 /* Main.storyboard */,
@@ -397,7 +427,10 @@
 			files = (
 				F7DD7DEB199B362800BA40F4 /* Images.xcassets in Resources */,
 				F7DD7DDD199B362800BA40F4 /* InfoPlist.strings in Resources */,
+				1F26D1A71A31B2890083A780 /* 1407887392_542709.jpg in Resources */,
+				1F1BD4001A35D06C003FD8E9 /* song.mp3 in Resources */,
 				F7DD7DE6199B362800BA40F4 /* Main.storyboard in Resources */,
+				1FF721091A32E24C00AAF80A /* Cartoon-hd-blooms-wallpapers.jpg in Resources */,
 				F7DD7E32199B363A00BA40F4 /* CTAssetsPicker.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -441,6 +474,7 @@
 				F7DD7DDF199B362800BA40F4 /* main.m in Sources */,
 				F7DD7E37199B363A00BA40F4 /* CTAssetsViewController.m in Sources */,
 				1FBF73861A25B8DC00B88AAB /* CommonVC.m in Sources */,
+				1F26D1A51A3180340083A780 /* MediaButton.m in Sources */,
 				F7DD7E29199B363A00BA40F4 /* ALAsset+accessibilityLabel.m in Sources */,
 				F7DD7E38199B363A00BA40F4 /* CTAssetsViewControllerTransition.m in Sources */,
 				F7DD7E47199B77B700BA40F4 /* VideoPlayerView.m in Sources */,
@@ -576,9 +610,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "VideoInset/VideoInset-Prefix.pch";
 				INFOPLIST_FILE = "VideoInset/VideoInset-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "6aab64a7-660b-4514-80fb-2c4477f4d8ec";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -593,9 +628,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "VideoInset/VideoInset-Prefix.pch";
 				INFOPLIST_FILE = "VideoInset/VideoInset-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "6aab64a7-660b-4514-80fb-2c4477f4d8ec";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

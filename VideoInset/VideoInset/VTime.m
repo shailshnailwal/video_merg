@@ -9,8 +9,14 @@
 #import "VTime.h"
 
 @implementation VTime
+
 @synthesize endTime;
 @synthesize startTime;
 
-
+- (NSString *)description{
+    
+    NSString *description = [NSString stringWithFormat:@"%f to %f", startTime.value, endTime.value];
+    
+    return description;
+}
 @end

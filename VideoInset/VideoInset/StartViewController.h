@@ -16,4 +16,6 @@
 
 @property(nonatomic,retain) UIImagePickerController *cameraPicker;
 -(IBAction)btnPickVideosPressed:(id)sender;
+-(IBAction)btnPickAudioPressed:(UIButton *)sender;
+-(IBAction)btnMergePressed:(UIButton *)sender;
 @end

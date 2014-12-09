@@ -7,6 +7,8 @@
 //
 
 #import "StartViewController.h"
+#import "MusicPickerVC.h"
+
 @implementation StartViewController
 
 @synthesize cameraPicker;
@@ -40,7 +42,7 @@
     
     AppDelegate *appDel=(AppDelegate*)[[UIApplication sharedApplication] delegate];
     CTAssetsPickerController *picker = [[CTAssetsPickerController alloc] init];
-//    picker.assetsFilter         = [ALAssetsFilter allVideos];
+    picker.assetsFilter         = [ALAssetsFilter allAssets];
     picker.showsCancelButton    = (UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPad);
     picker.delegate             = self;
     picker.selectedAssets       = [NSMutableArray arrayWithArray:appDel.assets];
@@ -50,6 +52,10 @@
     
 }
 
+-(IBAction)btnPickAudioPressed:(UIButton *)sender{
+    
+    [self.navigationController pushViewController:[MusicPickerVC new] animated:YES];
+}
 
 #pragma CTAssetsPickerController Delegates
 - (void)assetsPickerController:(CTAssetsPickerController *)picker didFinishPickingAssets:(NSArray *)assetsSelected
@@ -57,9 +63,15 @@
     AppDelegate *appDel=(AppDelegate*)[[UIApplication sharedApplication] delegate];
     appDel.assets = [NSMutableArray arrayWithArray:assetsSelected];
     [picker.presentingViewController dismissViewControllerAnimated:YES completion:^{
-        [self performSegueWithIdentifier:@"toMainView" sender:self];
+        
         //[self showCamera];
     }];
+}
+
+
+-(IBAction)btnMergePressed:(UIButton *)sender{
+    
+    [self performSegueWithIdentifier:@"toMainView" sender:self];
 }
 
 

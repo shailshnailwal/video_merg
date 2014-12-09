@@ -16,10 +16,11 @@
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 {
-    NSMutableArray *assets;
     id<AppOrientationDelegate> _orientationDelegate;
 }
 @property (strong, nonatomic)    NSMutableArray *assets;
+@property (strong, nonatomic)    NSMutableArray *music;
+@property (strong, nonatomic)    MPMediaItem *audio;
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) id<AppOrientationDelegate> orientationDelegate;
 

@@ -15,6 +15,9 @@
 #ifdef __OBJC__
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
+    #import <MediaPlayer/MediaPlayer.h>
+
+#import "AppDelegate.h"
 #endif
 
 #define App_Delegate ((AppDelegate *)[UIApplication sharedApplication].delegate)

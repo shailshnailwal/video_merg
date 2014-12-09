@@ -10,7 +10,7 @@
 
 @implementation AppDelegate
 
-@synthesize assets;
+@synthesize assets = _assets, music = _music, audio = _audio;
 @synthesize orientationDelegate = _orientationDelegate;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions

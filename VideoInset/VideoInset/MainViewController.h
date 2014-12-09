@@ -30,6 +30,7 @@
     IBOutlet UIButton     *_cameraBtn;
     IBOutlet UIButton     *_mergeBtn;
     IBOutlet UIButton     *_addCameraBtn;
+    IBOutlet UIImageView  *_imageView;
     
     NSURL *recordedVideoURL;
     

@@ -224,33 +224,6 @@
         /**/
         [self showSelectedItems];
         [self performSelector:@selector(showOptions) withObject:nil afterDelay:.2f];
-        
-//        NSLog(@"Camera inners ----- %@", self.cameraPicker.viewControllers);
-//        
-//        UIViewController *innerController = [self.cameraPicker.viewControllers objectAtIndex:0];
-//        
-//        NSLog(@"controller views = %@", innerController.view.subviews);
-//        
-//        UIView *firstView = [innerController.view.subviews objectAtIndex:0];
-//        UIView *secondView = [innerController.view.subviews objectAtIndex:1];
-//        
-//        firstView.backgroundColor = [UIColor redColor];
-//        
-//        
-//        
-//        NSLog(@"first view innner = %@", firstView.subviews);
-//        
-//        UIView *firstInner = [firstView.subviews objectAtIndex:0];
-////        firstInner.frame = CGRectMake(10, 10, 180, 180);
-//        
-//        
-//        NSLog(@"first inner innner = %@", firstInner.subviews);
-//        
-//        
-//        secondView.backgroundColor = [UIColor clearColor];
-//        
-//        firstView.frame = CGRectMake(0, 100, 200, 200);
-//        secondView.frame = CGRectMake(0, 200, 200, 200);
     }];
 #endif
 }
@@ -356,7 +329,12 @@
     
     if (_isImage) {
         
+        _imageView.hidden = NO;
+        [moviePlayer view].hidden = YES;
+        _imageView.image = [UIImage imageWithCGImage:asset.thumbnail];
+        
         _imagePicked ++;
+        
         NSLog(@"--------- %d", _imagePicked);
         NSString *keyString = nil;
         UIButton *button = nil;
@@ -381,6 +359,10 @@
         [moviePlayer pause];
     }
     else{
+        
+        
+        _imageView.hidden = YES;
+        [moviePlayer view].hidden = NO;
         
         currentTime = CMTimeMakeWithSeconds(CMTimeGetSeconds(kCMTimeZero) + self.moviePlayer.currentPlaybackTime,600);
         
@@ -743,16 +725,21 @@
                               error:nil];
         
         
+        ////// Background Audio Mixing ///////
+        NSURL *audio_url = nil;
+//        audio_url = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"song" ofType:@"mp3"]];
+        
+        if (App_Delegate.audio && [App_Delegate.audio isKindOfClass:[MPMediaItem class]]) {
+            
+            audio_url = [App_Delegate.audio valueForProperty:MPMediaItemPropertyAssetURL];
+            AVURLAsset  *audioAsset = [[AVURLAsset alloc]initWithURL:audio_url options:nil];
+            
+            //Now we are creating the first AVMutableCompositionTrack containing our audio and add it to our AVMutableComposition object.
+            AVMutableCompositionTrack *b_compositionAudioTrack = [mixComposition addMutableTrackWithMediaType:AVMediaTypeAudio preferredTrackID:kCMPersistentTrackID_Invalid];
+            [b_compositionAudioTrack insertTimeRange:thirdRange ofTrack:[[audioAsset tracksWithMediaType:AVMediaTypeAudio] objectAtIndex:0] atTime:kCMTimeZero error:nil];
+        }
         /////////////
         
-        NSURL *audio_url = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"song" ofType:@"mp3"]];
-        AVURLAsset  *audioAsset = [[AVURLAsset alloc]initWithURL:audio_url options:nil];
-        
-        //Now we are creating the first AVMutableCompositionTrack containing our audio and add it to our AVMutableComposition object.
-        AVMutableCompositionTrack *b_compositionAudioTrack = [mixComposition addMutableTrackWithMediaType:AVMediaTypeAudio preferredTrackID:kCMPersistentTrackID_Invalid];
-        [b_compositionAudioTrack insertTimeRange:thirdRange ofTrack:[[audioAsset tracksWithMediaType:AVMediaTypeAudio] objectAtIndex:0] atTime:kCMTimeZero error:nil];
-        
-        /////////////
         
         AVMutableVideoCompositionLayerInstruction *thirdlayerInstruction = [AVMutableVideoCompositionLayerInstruction videoCompositionLayerInstructionWithAssetTrack:thirdTrack];
         

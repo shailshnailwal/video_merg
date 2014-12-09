@@ -441,6 +441,8 @@
     NSURL *url2 = [representation2 url];
     
     [self mergeVideosOneURLWorking:url1 andVideoTwoURL:url2];
+    
+//    [self mergeAndSave];
 }
 
 - (void) mergeVideosOneURLWorking:(NSURL *)videoOneURL andVideoTwoURL:(NSURL *)videoTwoURL {
@@ -488,7 +490,8 @@
     {
         //Create AVMutableComposition object
         
-        mixComposition      = [[AVMutableComposition alloc] init];
+        mixComposition      = [AVMutableComposition composition];
+        
         // create first track
         
         //Main Instruction Layer
@@ -577,7 +580,6 @@
                 CGAffineTransform scale  = CGAffineTransformMakeScale(FLOATING_VIDEO_SCALE_FACTOR,
                                                                       FLOATING_VIDEO_SCALE_FACTOR);
                 
-                // for iPhone 5
                 CGAffineTransform rotate = CGAffineTransformMakeRotation(0 * M_PI/180.0);
                 CGAffineTransform move   = CGAffineTransformMakeTranslation(10, 10);
                 
@@ -644,7 +646,7 @@
 //                }
                 
                 watermarkLayer.contents = (id) mButton.imageView.image.CGImage;
-                watermarkLayer.opacity = 0.0;
+                watermarkLayer.opacity  = 0.0;
                 watermarkLayer.backgroundColor = [UIColor clearColor].CGColor;
                 
 //                watermarkLayer.position =
@@ -727,8 +729,8 @@
         
         NSLog(@"Audio check = %f", thirdTrackAudio.preferredVolume);
         
-        CMTime thirdTime=CMTimeMakeWithSeconds(CMTimeGetSeconds(rangeFinal.duration) ,secondAsset.duration.timescale);
-        CMTimeRange thirdRange=CMTimeRangeMake(kCMTimeZero, thirdTime);
+        CMTime thirdTime = CMTimeMakeWithSeconds(CMTimeGetSeconds(rangeFinal.duration) ,secondAsset.duration.timescale);
+        CMTimeRange thirdRange = CMTimeRangeMake(kCMTimeZero, thirdTime);
         
         [thirdTrack insertTimeRange:thirdRange
                             ofTrack:[[thirdAsset tracksWithMediaType:AVMediaTypeVideo] objectAtIndex:0]
@@ -740,26 +742,21 @@
                              atTime:kCMTimeZero
                               error:nil];
         
-        NSString* musicPath = [[NSBundle mainBundle] pathForResource:@"song"
-                                                              ofType:@"mp3"];
         
-        AVAsset *backgroundTrack = [AVAsset assetWithURL:[NSURL URLWithString:musicPath]];
-        NSLog(@"background track = %@", backgroundTrack);
+        /////////////
         
-        AVMutableCompositionTrack *thirdTrackBackgoundAudio = [mixComposition addMutableTrackWithMediaType:AVMediaTypeAudio preferredTrackID:kCMPersistentTrackID_Invalid];
+        NSURL *audio_url = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"song" ofType:@"mp3"]];
+        AVURLAsset  *audioAsset = [[AVURLAsset alloc]initWithURL:audio_url options:nil];
         
-        [thirdTrackBackgoundAudio insertTimeRange:CMTimeRangeMake(kCMTimeZero, backgroundTrack.duration)
-                                          ofTrack:[backgroundTrack trackWithTrackID:kCMPersistentTrackID_Invalid]
-                                           atTime:kCMTimeZero
-                                            error:nil];
+        //Now we are creating the first AVMutableCompositionTrack containing our audio and add it to our AVMutableComposition object.
+        AVMutableCompositionTrack *b_compositionAudioTrack = [mixComposition addMutableTrackWithMediaType:AVMediaTypeAudio preferredTrackID:kCMPersistentTrackID_Invalid];
+        [b_compositionAudioTrack insertTimeRange:thirdRange ofTrack:[[audioAsset tracksWithMediaType:AVMediaTypeAudio] objectAtIndex:0] atTime:kCMTimeZero error:nil];
         
-//        [thirdTrackBackgoundAudio insertTimeRange:CMTimeRangeMake(kCMTimeZero, backgroundTrack.duration)
-//                               ofTrack:backgroundTrack atTime:kCMTimeZero error:nil];
-        
-//        [thirdTrackBackgoundAudio insertTimeRange:CMTimeRangeMake(kCMTimeZero, CMTimeAdd(firstAsset.duration, secondAsset.duration))
-//                            ofTrack:[[backgroundTrack tracksWithMediaType:AVMediaTypeAudio] objectAtIndex:0] atTime:kCMTimeZero error:nil];
+        /////////////
         
         AVMutableVideoCompositionLayerInstruction *thirdlayerInstruction = [AVMutableVideoCompositionLayerInstruction videoCompositionLayerInstructionWithAssetTrack:thirdTrack];
+        
+//        AVMutableVideoCompositionLayerInstruction *thirdlayerInstructionBackground = [AVMutableVideoCompositionLayerInstruction videoCompositionLayerInstructionWithAssetTrack:thirdTrackBackgoundAudio];
         
         CGAffineTransform thirdScale = CGAffineTransformMakeScale(MAIN_VIDEO_SCALE_FACTOR,
                                                                   MAIN_VIDEO_SCALE_FACTOR);
@@ -780,6 +777,7 @@
         [thirdlayerInstruction setTransform:new2 atTime:kCMTimeZero];
         
         [arrInstructions addObject:thirdlayerInstruction];
+//        [arrInstructions addObject:thirdlayerInstructionBackground];
         
         
         //Now adding FirstInstructionLayer and SecondInstructionLayer to mainInstruction
@@ -814,6 +812,8 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 
                 [self exportDidFinish:exporter];
+//                [self mergeAndSave];
+                
                 NSLog(@"end export");
             });
         }];
@@ -827,9 +827,96 @@
     }
 }
 
+-(void)mergeAndSave
+{
+    //Create AVMutableComposition Object which will hold our multiple AVMutableCompositionTrack or we can say it will hold our video and audio files.
+    AVMutableComposition* mixComposition = [AVMutableComposition composition];
+    
+    //Now first load your audio file using AVURLAsset. Make sure you give the correct path of your videos.
+    NSURL *audio_url = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"song" ofType:@"mp3"]];
+    AVURLAsset  *audioAsset = [[AVURLAsset alloc]initWithURL:audio_url options:nil];
+    CMTimeRange audio_timeRange = CMTimeRangeMake(kCMTimeZero, audioAsset.duration);
+    
+    //Now we are creating the first AVMutableCompositionTrack containing our audio and add it to our AVMutableComposition object.
+    AVMutableCompositionTrack *b_compositionAudioTrack = [mixComposition addMutableTrackWithMediaType:AVMediaTypeAudio preferredTrackID:kCMPersistentTrackID_Invalid];
+    [b_compositionAudioTrack insertTimeRange:audio_timeRange ofTrack:[[audioAsset tracksWithMediaType:AVMediaTypeAudio] objectAtIndex:0] atTime:kCMTimeZero error:nil];
+    
+    //Now we will load video file.
+    
+//    ALAsset *assest2=[App_Delegate.assets objectAtIndex:0];
+//    ALAssetRepresentation *representation2 = [assest2 defaultRepresentation];
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *myPathDocs =  [documentsDirectory stringByAppendingPathComponent:
+                             [NSString stringWithFormat:@"mergeVideo.mov"]];
+    
+    NSURL *video_url = [NSURL URLWithString:myPathDocs];
+    
+//    NSURL *video_url = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"Asteroid_Video" ofType:@"m4v"]];
+    AVURLAsset  *videoAsset = [[AVURLAsset alloc]initWithURL:video_url options:nil];
+    CMTimeRange video_timeRange = CMTimeRangeMake(kCMTimeZero,videoAsset.duration);
+    
+    //Now we are creating the second AVMutableCompositionTrack containing our video and add it to our AVMutableComposition object.
+    AVMutableCompositionTrack *a_compositionVideoTrack = [mixComposition addMutableTrackWithMediaType:AVMediaTypeVideo preferredTrackID:kCMPersistentTrackID_Invalid];
+    [a_compositionVideoTrack insertTimeRange:video_timeRange ofTrack:[[videoAsset tracksWithMediaType:AVMediaTypeVideo] objectAtIndex:0] atTime:kCMTimeZero error:nil];
+    
+    //decide the path where you want to store the final video created with audio and video merge.
+    NSArray *dirPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *docsDir = [dirPaths objectAtIndex:0];
+    NSString *outputFilePath = [docsDir stringByAppendingPathComponent:[NSString stringWithFormat:@"mergeVideo.mov"]];
+    NSURL *outputFileUrl = [NSURL fileURLWithPath:outputFilePath];
+//    if ([[NSFileManager defaultManager] fileExistsAtPath:outputFilePath]){
+//        
+//        [[NSFileManager defaultManager] removeItemAtPath:outputFilePath error:nil];
+//    }
+    
+    //Now create an AVAssetExportSession object that will save your final video at specified path.
+    AVAssetExportSession* _assetExport = [[AVAssetExportSession alloc] initWithAsset:mixComposition presetName:AVAssetExportPresetHighestQuality];
+    _assetExport.outputFileType = @"com.apple.quicktime-movie";
+    _assetExport.outputURL = outputFileUrl;
+    
+    [_assetExport exportAsynchronouslyWithCompletionHandler:
+     ^(void ) {
+         
+         dispatch_async(dispatch_get_main_queue(), ^{
+             
+             [self exportDidFinish:_assetExport];
+         });
+     }
+     ];
+    
+//    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+//    NSString *documentsDirectory = [paths objectAtIndex:0];
+//    NSString *myPathDocs =  [documentsDirectory stringByAppendingPathComponent:
+//                             [NSString stringWithFormat:@"mergeVideo.mov"]];
+    
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    [fileManager removeItemAtPath:myPathDocs error:NULL];
+    NSURL*  mainURL = [NSURL fileURLWithPath:myPathDocs];
+    //        NSLog(@"URL:-  %@", [mainURL description]);
+    
+    //create Exporter
+    AVAssetExportSession *exporter = [[AVAssetExportSession alloc] initWithAsset:mixComposition presetName:AVAssetExportPresetHighestQuality];
+    exporter.outputURL = mainURL;
+    exporter.outputFileType = AVFileTypeQuickTimeMovie;
+    exporter.shouldOptimizeForNetworkUse = YES;
+//    exporter.videoComposition = mainComposition;
+    [exporter exportAsynchronouslyWithCompletionHandler:^{
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            [self exportDidFinish:exporter];
+            NSLog(@"end export");
+        });
+    }];
+}
+
 //here you have the outputURL of the final overlapped vide0. add your desired task here.
 - (void)exportDidFinish:(AVAssetExportSession*)session
 {
+    
+    
     [MBProgressHUD hideHUDForView:self.view animated:YES];
     NSLog(@"export did finish...");
     NSLog(@"%li", (long)session.status);
@@ -840,6 +927,7 @@
     [[MPMusicPlayerController applicationMusicPlayer] setVolume:.3f];
     
     MPMoviePlayerViewController *videoPlayerView = [[MPMoviePlayerViewController alloc] initWithContentURL:vedioURL];
+    
     [self presentMoviePlayerViewControllerAnimated:videoPlayerView];
     
     
